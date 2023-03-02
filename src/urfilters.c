@@ -19,9 +19,6 @@
 #include "stdio.h"
 #include "blosc2.h"
 
-#define KB  1024.
-#define MB  (1024*KB)
-
 enum {
     FILTER_ID = 250,
 };
@@ -58,15 +55,12 @@ int filter_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta
 }
 
 
-
-
-
 int filter_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
                     uint8_t id) {
   //BLOSC_UNUSED_PARAM(meta);
   //BLOSC_UNUSED_PARAM(id);
   if (id != FILTER_ID) {
-    printf("ie subnormal, què fas?");
+    printf("ie subnormal, què fas? xa, perlamordedeu");
     return BLOSC2_ERROR_FAILURE;
   }
   blosc2_schunk *schunk = dparams->schunk;
@@ -90,6 +84,4 @@ int filter_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t met
   return BLOSC2_ERROR_SUCCESS;
 }
 
-blosc2_filter filter = {.id=FILTER_ID, .forward=filter_forward, .backward=filter_backward
-
-};
+blosc2_filter filter = {.id=FILTER_ID, .forward=filter_forward, .backward=filter_backward};
