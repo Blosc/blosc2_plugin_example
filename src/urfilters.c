@@ -3,36 +3,19 @@
   https://blosc.org
   License: BSD 3-Clause (see LICENSE.txt)
 
-   Example program demonstrating use of the Blosc filter from C code.
-
-  To compile this program:
-
-  $ gcc urfilters.c -o urfilters -lblosc2
-
-  To run:
-
-  $ ./urfilters
-
  */
 
 
 #include "stdio.h"
+#include "string.h"
 #include "blosc2.h"
 
-enum {
-    FILTER_ID = 250,
-};
+#define FILTER_ID 250
+#define FILTER_NAME "plugin_example"
 
 
-
-int filter_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
-                   uint8_t id) {
-  //BLOSC_UNUSED_PARAM(meta);
-  //BLOSC_UNUSED_PARAM(id);
-  if (id != FILTER_ID) {
-    printf("ie subnormal, què fas?");
-    return BLOSC2_ERROR_FAILURE;
-  }
+int plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
+                           uint8_t id) {
   blosc2_schunk *schunk = cparams->schunk;
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
@@ -55,14 +38,8 @@ int filter_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta
 }
 
 
-int filter_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
-                    uint8_t id) {
-  //BLOSC_UNUSED_PARAM(meta);
-  //BLOSC_UNUSED_PARAM(id);
-  if (id != FILTER_ID) {
-    printf("ie subnormal, què fas? xa, perlamordedeu");
-    return BLOSC2_ERROR_FAILURE;
-  }
+int plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
+                            uint8_t id) {
   blosc2_schunk *schunk = dparams->schunk;
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
@@ -84,4 +61,16 @@ int filter_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t met
   return BLOSC2_ERROR_SUCCESS;
 }
 
-blosc2_filter filter = {.id=FILTER_ID, .forward=filter_forward, .backward=filter_backward};
+
+void check_filter(blosc2_filter *filter) {
+  if (filter->id != FILTER_ID) {
+    BLOSC_TRACE_ERROR("Wrong library for filter with expected id %d, found %d", FILTER_ID, filter->id);
+    return;
+  }
+  /* Uncomment this when Blosc2 version includes name field in filters
+  if (strcmp(filter->name, FILTER_NAME) != 0) {
+    BLOSC_TRACE_ERROR("Wrong library for filter with expected name %s, found %s", FILTER_NAME, filter->name);
+    return;
+  }
+  */
+}
