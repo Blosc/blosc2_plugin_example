@@ -9,7 +9,6 @@
 from skbuild import setup
 
 setup(
-    name="plugin_example",
-    packages=["plugin_example"],
-    package_dir={"plugin_example": "plugin_example"},
+    name="blosc2_plugin_example",
+    packages=["blosc2_plugin_example"],
 )

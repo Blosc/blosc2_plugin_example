@@ -10,9 +10,8 @@
 requires = ["setuptools", "scikit-build", "cmake", "ninja", "blosc2"]
 build-backend = "setuptools.build_meta"
 
-
 [project]
-name = "plugin_example"
+name = "blosc2_plugin_example"
 dynamic = ["version", "readme"]
 authors = [
     {name = "Blosc Development Team", email = "blosc@blosc.org"},
@@ -36,18 +35,13 @@ dependencies = [
     "blosc2"
 ]
 
-
 [tool.setuptools.dynamic]
-version = {attr = "plugin_example.VERSION"}
+version = {attr = "blosc2_plugin_example.VERSION"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
-
 
 [tool.setuptools]
 platforms = [ "any" ]
 zip-safe = false
 
-
-
 [tool.cibuildwheel]
 skip = "cp36-* cp37-* pp37-* *-manylinux_i686 *_ppc64le *_s390x *-musllinux*"
-

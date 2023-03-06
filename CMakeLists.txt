@@ -8,7 +8,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(plugin_example LANGUAGES C CXX)
+project(blosc2_plugin_example LANGUAGES C CXX)
 
 message("Building Blosc2 plugin example...")
 
@@ -30,6 +30,6 @@ else()
     message(FATAL_ERROR "No Python found.  Aborting.")
 endif()
 
-add_library(plugin_example MODULE src/urfilters.c)
-target_include_directories(plugin_example PUBLIC "${BLOSC2_INCLUDE_DIR}")
-install(TARGETS plugin_example LIBRARY DESTINATION plugin_example)
+add_library(blosc2_plugin_example MODULE src/urfilters.c)
+target_include_directories(blosc2_plugin_example PUBLIC "${BLOSC2_INCLUDE_DIR}")
+install(TARGETS blosc2_plugin_example LIBRARY DESTINATION blosc2_plugin_example)
