@@ -62,15 +62,16 @@ int plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uin
 }
 
 
-void check_filter(blosc2_filter *filter) {
+int check_filter(blosc2_filter *filter) {
   if (filter->id != FILTER_ID) {
     BLOSC_TRACE_ERROR("Wrong library for filter with expected id %d, found %d", FILTER_ID, filter->id);
-    return;
+    return BLOSC2_ERROR_FAILURE;
   }
-  /* Uncomment this when Blosc2 version includes name field in filters
+  /* Uncomment this when Blosc2 includes name field in filters
   if (strcmp(filter->name, FILTER_NAME) != 0) {
     BLOSC_TRACE_ERROR("Wrong library for filter with expected name %s, found %s", FILTER_NAME, filter->name);
-    return;
+    return BLOSC2_ERROR_FAILURE;
   }
   */
+  return BLOSC2_ERROR_SUCCESS;
 }
