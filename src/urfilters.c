@@ -9,12 +9,16 @@
 #include "stdio.h"
 #include "string.h"
 #include "blosc2.h"
+#include "blosc2/filters-registry.h"
 
 #define FILTER_ID 250
 #define FILTER_NAME "plugin_example"
 
+#define FORWARD_NAME "blosc2_plugin_example_forward"
+#define BACKWARD_NAME "blosc2_plugin_example_backward"
 
-int plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
+
+int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
                            uint8_t id) {
   blosc2_schunk *schunk = cparams->schunk;
 
@@ -38,7 +42,7 @@ int plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint
 }
 
 
-int plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
+int blosc2_plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
                             uint8_t id) {
   blosc2_schunk *schunk = dparams->schunk;
 
@@ -62,16 +66,4 @@ int plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uin
 }
 
 
-int check_filter(blosc2_filter *filter) {
-  if (filter->id != FILTER_ID) {
-    BLOSC_TRACE_ERROR("Wrong library for filter with expected id %d, found %d", FILTER_ID, filter->id);
-    return BLOSC2_ERROR_FAILURE;
-  }
-  /* Uncomment this when Blosc2 includes name field in filters
-  if (strcmp(filter->name, FILTER_NAME) != 0) {
-    BLOSC_TRACE_ERROR("Wrong library for filter with expected name %s, found %s", FILTER_NAME, filter->name);
-    return BLOSC2_ERROR_FAILURE;
-  }
-  */
-  return BLOSC2_ERROR_SUCCESS;
-}
+filter_info info  = {.forward=FORWARD_NAME, .backward=BACKWARD_NAME};
