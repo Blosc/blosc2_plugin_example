@@ -30,15 +30,7 @@ int main(void) {
   int dsize;
   int64_t nbytes, cbytes;
 
-  blosc2_filter urfilter;
-  urfilter.id = FILTER_ID;
-  urfilter.name = PLUGIN_NAME;
-  urfilter.version = 1;
-  urfilter.forward = plugin_example_forward;
-  urfilter.backward = plugin_example_backward;
-
-  blosc2_register_filter(&urfilter);
-
+  blosc2_init();
   blosc2_cparams cparams = BLOSC2_CPARAMS_DEFAULTS;
   cparams.filters[4] = FILTER_ID;
   cparams.filters_meta[4] = 0;
@@ -57,6 +49,10 @@ int main(void) {
   cparams.clevel = 9;
   blosc2_storage storage = {.cparams=&cparams, .dparams=&dparams};
   schunk = blosc2_schunk_new(&storage);
+  if (schunk == NULL) {
+    printf("Could not create schunk");
+    return -1;
+  }
 
   blosc_set_timestamp(&last);
   for (nchunk = 0; nchunk < NCHUNKS; nchunk++) {
@@ -108,6 +104,7 @@ int main(void) {
   /* Free resources */
   /* Destroy the super-chunk */
   blosc2_schunk_free(schunk);
+  blosc2_destroy();
 
   return 0;
 }
