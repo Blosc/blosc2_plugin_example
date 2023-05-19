@@ -31,6 +31,16 @@ int main(void) {
   int64_t nbytes, cbytes;
 
   blosc2_init();
+
+  // Only need to register the filter in case the plugin is not registered in Blosc2
+  blosc2_filter urfilter;
+  urfilter.id = FILTER_ID;
+  urfilter.name = FILTER_NAME;
+  urfilter.version = 1;
+  urfilter.forward = NULL;
+  urfilter.backward = NULL;
+  blosc2_register_filter(&urfilter);
+
   blosc2_cparams cparams = BLOSC2_CPARAMS_DEFAULTS;
   cparams.filters[4] = FILTER_ID;
   cparams.filters_meta[4] = 0;
