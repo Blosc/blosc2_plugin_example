@@ -50,6 +50,18 @@ jobs:
         with:
           arch: amd64
 
+      - name: Create venv (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Create venv (Win)
+        if: runner.os == 'Windows'
+        run: |
+          python -m venv venv
+          venv/Scripts/activate.bat
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
