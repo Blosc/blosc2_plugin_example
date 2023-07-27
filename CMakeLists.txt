@@ -11,7 +11,7 @@ project(blosc2_plugin_example LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 message("Building Blosc2 plugin example...")
-include(FindPackageHandleStandardArgs.cmake)
+include(FindPackageHandleStandardArgs)
 
 find_path(BLOSC2_INCLUDE_DIR blosc2.h)
 find_library(BLOSC2_LIBRARY blosc2)
