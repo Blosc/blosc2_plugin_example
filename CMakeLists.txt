@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 message("Building Blosc2 plugin example...")
 
 # Find blosc2.h
-find_package(Python COMPONENTS Interpreter Development)
+find_package(Python COMPONENTS Interpreter)
 if(Python_Interpreter_FOUND)
     message(STATUS "Executable: ${Python_EXECUTABLE}")
 
@@ -23,8 +23,6 @@ if(Python_Interpreter_FOUND)
     message(STATUS "Python_INCLUDE_DIR: ${Python_INCLUDE_DIR}")
     message(STATUS "Python_INCLUDE_DIRS: ${Python_INCLUDE_DIRS}")
     message(STATUS "Python_LIBRARY_DIRS: ${Python_LIBRARY_DIRS}")
-    message(STATUS "Python_Development_FOUND: ${Python_Development_FOUND}")
-    message(STATUS "Python_Development.Module_FOUND: ${Python_Development.Module_FOUND}")
 
     find_library(BLOSC2_LIB NAMES blosc2 PATHS /)
     message(STATUS "BLOSC2_LIB: ${BLOSC2_LIB}")
