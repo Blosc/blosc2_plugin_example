@@ -14,7 +14,7 @@ message("Building Blosc2 plugin example...")
 
 # Find blosc2.h
 
-IF (LINUX)
+IF (UNIX)
     cmake_path(SET Python_ROOT NORMALIZE "${Python3_NumPy_INCLUDE_DIRS}/../../../../../..")
     cmake_path(SET Python_INCLUDE NORMALIZE "${Python_ROOT}/include")
     message(STATUS "Found Python include: ${Python_INCLUDE}")
