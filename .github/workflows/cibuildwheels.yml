@@ -24,8 +24,6 @@ jobs:
         exclude:
           - os: windows-latest
             arch: aarch64
-          - os: macos-latest
-            arch: aarch64
 
     steps:
       - name: Checkout repo
