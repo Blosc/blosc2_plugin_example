@@ -33,10 +33,21 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.8'
+
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: '3.8'
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+      - name: Conda info
+        shell: bash -el {0}
+        run: conda info
+      - name: Conda list
+        shell: pwsh
+        run: conda list
 
       - name: Set up QEMU
         if: ${{ matrix.arch == 'aarch64' }}
