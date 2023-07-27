@@ -20,6 +20,10 @@
 
 int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
                            uint8_t id) {
+  char* blosc_trace = getenv("BLOSC_TRACE");
+  if (blosc_trace != NULL) {
+    printf("Inside plugin_example forward function\n");
+  }
   blosc2_schunk *schunk = cparams->schunk;
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
@@ -44,6 +48,10 @@ int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t siz
 
 int blosc2_plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
                             uint8_t id) {
+  char* blosc_trace = getenv("BLOSC_TRACE");
+  if (blosc_trace != NULL) {
+    printf("Inside plugin_example backward function\n");
+  }
   blosc2_schunk *schunk = dparams->schunk;
 
   for (int i = 0; i < size / schunk->typesize; ++i) {

@@ -12,7 +12,6 @@
 
 #include "stdio.h"
 #include "blosc2.h"
-#include "urfilters.c"
 
 #define KB  1024.
 #define MB  (1024*KB)
@@ -34,15 +33,15 @@ int main(void) {
 
   // Only need to register the filter in case the plugin is not registered in Blosc2
   blosc2_filter urfilter;
-  urfilter.id = FILTER_ID;
-  urfilter.name = FILTER_NAME;
+  urfilter.id = 250;
+  urfilter.name = "plugin_example";
   urfilter.version = 1;
   urfilter.forward = NULL;
   urfilter.backward = NULL;
   blosc2_register_filter(&urfilter);
 
   blosc2_cparams cparams = BLOSC2_CPARAMS_DEFAULTS;
-  cparams.filters[4] = FILTER_ID;
+  cparams.filters[4] = 250;
   cparams.filters_meta[4] = 0;
 
   blosc2_dparams dparams = BLOSC2_DPARAMS_DEFAULTS;
