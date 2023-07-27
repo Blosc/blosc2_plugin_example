@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD 20)
 message("Building Blosc2 plugin example...")
 include(FindPackageHandleStandardArgs)
 
-find_path(BLOSC2_INCLUDE_DIR blosc2.h)
-find_library(BLOSC2_LIBRARY blosc2)
+find_path(BLOSC2_INCLUDE_DIR blosc2.h HINTS /)
+find_library(BLOSC2_LIBRARY blosc2 HINTS /)
 
 find_package_handle_standard_args(BLOSC2
  DEFAULT_MSG
