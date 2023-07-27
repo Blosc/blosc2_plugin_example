@@ -11,6 +11,23 @@ project(blosc2_plugin_example LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 message("Building Blosc2 plugin example...")
+include(FindPackageHandleStandardArgs.cmake)
+
+find_path(BLOSC2_INCLUDE_DIR blosc2.h)
+find_library(BLOSC2_LIBRARY blosc2)
+
+find_package_handle_standard_args(BLOSC2
+ DEFAULT_MSG
+  BLOSC2_INCLUDE_DIR
+  BLOSC2_LIBRARY
+)
+
+mark_as_advanced(BLOSC2_LIBRARY BLOSC2_INCLUDE_DIR)
+
+if(BLOSC2_FOUND)
+  set(BLOSC2_LIBRARIES    ${BLOSC2_LIBRARY})
+  set(BLOSC2_INCLUDE_DIRS ${BLOSC2_INCLUDE_DIR})
+endif()
 
 # Find blosc2.h
 find_package(Python COMPONENTS Interpreter)
