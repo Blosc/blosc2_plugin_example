@@ -34,7 +34,7 @@ find_package(Python COMPONENTS Interpreter)
 if(Python_Interpreter_FOUND)
     message(STATUS "Executable: ${Python_EXECUTABLE}")
 
-    cmake_path(SET SitePACKAGES NORMALIZE "${DPython3_NumPy_INCLUDE_DIRS}/../../..")
+    cmake_path(SET SitePACKAGES NORMALIZE "${Python3_NumPy_INCLUDE_DIRS}/../../..")
     message(STATUS "Site-packages: ${SitePACKAGES}")
     message(STATUS "STDLIB: ${Python_STDLIB}")
     message(STATUS "SITELIB: ${Python_SITELIB}")
