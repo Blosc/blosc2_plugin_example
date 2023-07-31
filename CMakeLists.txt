@@ -78,4 +78,3 @@ ENDIF()
 
 include_directories("${BLOSC2_INCLUDE_DIR}")
 add_subdirectory(src)
-add_subdirectory(examples)
