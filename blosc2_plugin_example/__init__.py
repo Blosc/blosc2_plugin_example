@@ -6,7 +6,6 @@
 #
 # See LICENSE.txt for details about copyright and rights to use.
 
-VERSION = 0.1
 
 import os
 import platform

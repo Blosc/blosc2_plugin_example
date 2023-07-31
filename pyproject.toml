@@ -12,7 +12,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "blosc2_plugin_example"
-dynamic = ["version", "readme"]
+version = "0.0.1"
+dynamic = ["readme"]
 authors = [
     {name = "Blosc Development Team", email = "blosc@blosc.org"},
 ]
@@ -36,7 +37,6 @@ dependencies = [
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "blosc2_plugin_example.VERSION"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools]
