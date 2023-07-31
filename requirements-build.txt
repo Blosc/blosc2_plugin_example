@@ -1,3 +1,2 @@
-scikit-build
-cmake
+scikit-build-core
 blosc2

@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 message("Building Blosc2 plugin example...")
 
 # Find blosc2.h
+find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 
 IF (UNIX)
     cmake_path(SET Python_ROOT NORMALIZE "${Python3_NumPy_INCLUDE_DIRS}/../../../../../..")

@@ -7,8 +7,8 @@
 # See LICENSE.txt for details about copyright and rights to use.
 
 [build-system]
-requires = ["setuptools==60.2.0", "scikit-build", "cmake", "ninja", "blosc2"]
-build-backend = "setuptools.build_meta"
+requires = ["scikit-build-core", "blosc2"]
+build-backend = "scikit_build_core.build"
 
 [project]
 name = "blosc2_plugin_example"
