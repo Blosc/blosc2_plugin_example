@@ -64,7 +64,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.14.1
         env:
           CIBW_BUILD: 'cp38-win_amd64 cp39-win_amd64 cp310-win_amd64 cp311-win_amd64'
-          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=main
+          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=blosc2
           CIBW_TEST_COMMAND: cd {project}/examples && python schunk_roundtrip.py
           CIBW_BUILD_VERBOSITY: 1
 
@@ -77,7 +77,7 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_BUILD: 'cp38-* cp39-* cp310-* cp311-*'
-          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=main
+          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=blosc2
           CIBW_TEST_COMMAND: cd {project}/examples && python schunk_roundtrip.py
           CIBW_BUILD_VERBOSITY: 1
           CIBW_ARCHS_MACOS: "arm64"
@@ -92,7 +92,7 @@ jobs:
           CIBW_BUILD: 'cp38-* cp39-* cp310-* cp311-*'
           CIBW_SKIP: '*-manylinux*_i686 *-musllinux_* ${{ env.CIBW_SKIP}}'
           CIBW_ARCHS_LINUX: ${{ matrix.arch }}
-          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=main
+          CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=blosc2
           CIBW_TEST_COMMAND: cd {project}/examples && python schunk_roundtrip.py
           CIBW_BUILD_VERBOSITY: 1
           CIBW_ARCHS_MACOS: "x86_64"
