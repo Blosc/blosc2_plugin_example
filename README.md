@@ -41,6 +41,10 @@ Compression time: 0.265 s, 1437.0 MB/s
 Decompression time: 0.152 s, 2506.6 MB/s
 Successful roundtrip data <-> schunk !
 ```
+If you created the wheel with cibuildwheel use 
+`DYLD_LIBRARY_PATH=/Users/martaiborra/miniforge3/envs/plugin_example_arm64/lib/`
+on Mac or `LD_LIBRARY_PATH=/Users/martaiborra/miniforge3/envs/plugin_example_arm64/lib/`
+on linux.
 
 If you want to see that the plugin example filter its being applied
 instead of any other use `BLOSC_TRACE=1`.
