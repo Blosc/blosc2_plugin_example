@@ -24,7 +24,15 @@ int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t siz
   if (blosc_trace != NULL) {
     printf("Inside plugin_example forward function\n");
   }
-  blosc2_schunk *schunk = cparams->schunk;
+
+  blosc2_schunk *schunk = NULL;
+  if (cparams != NULL && cparams->schunk != NULL) {
+    schunk = cparams->schunk;
+  }
+  else {
+    BLOSC_TRACE_ERROR("Cannot get schunk from cparams");
+    return BLOSC2_ERROR_CODEC_PARAM;
+  }
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
     switch (schunk->typesize) {
@@ -52,7 +60,15 @@ int blosc2_plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t si
   if (blosc_trace != NULL) {
     printf("Inside plugin_example backward function\n");
   }
-  blosc2_schunk *schunk = dparams->schunk;
+
+  blosc2_schunk *schunk = NULL;
+  if (dparams != NULL && dparams->schunk != NULL) {
+    schunk = dparams->schunk;
+  }
+  else {
+    BLOSC_TRACE_ERROR("Cannot get schunk from dparams");
+    return BLOSC2_ERROR_CODEC_PARAM;
+  }
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
     switch (schunk->typesize) {
