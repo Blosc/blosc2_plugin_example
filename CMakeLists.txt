@@ -13,8 +13,11 @@ set(CMAKE_CXX_STANDARD 20)
 message("Building Blosc2 plugin example...")
 
 # Find blosc2.h
-find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
-
+find_package(Python3 COMPONENTS Interpreter NumPy Development.Module REQUIRED)
+message(STATUS "Executable: ${Python_EXECUTABLE}")
+message(STATUS "NumPy found: ${Python_NumPy_FOUND}")
+message(STATUS "NumPy version: ${Python3_NumPy_VERSION}")
+message(STATUS "Python3_NumPy_INCLUDE_DIRS: ${Python3_NumPy_INCLUDE_DIRS}")
 IF (UNIX)
     cmake_path(SET Python_ROOT NORMALIZE "${Python3_NumPy_INCLUDE_DIRS}/../../../../../..")
     cmake_path(SET Python_INCLUDE NORMALIZE "${Python_ROOT}/include")
