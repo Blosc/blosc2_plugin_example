@@ -17,7 +17,7 @@ def print_libpath():
     if system in ["Linux", "Darwin"]:
         libname = "libblosc2_plugin_example.so"
     elif system == "Windows":
-        libname = "libblosc2_plugin_example.dll"
+        libname = "blosc2_plugin_example.dll"
     else:
         raise RuntimeError("Unsupported system: ", system)
     libpath = os.path.abspath(Path(__file__).parent / libname)
