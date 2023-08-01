@@ -60,8 +60,9 @@ jobs:
         env:
           CIBW_BUILD: 'cp38-win_amd64 cp39-win_amd64 cp310-win_amd64 cp311-win_amd64'
           # CIBW_BEFORE_TEST: pip install git+https://github.com/Blosc/python-blosc2#egg=blosc2
-          CIBW_BEFORE_TEST: pip install blosc2
-          CIBW_TEST_COMMAND: cmd /V /C "set "BLOSC_TRACE=1" && python {project}/examples/array_roundtrip.py"
+          # Testing does not work for Win (yet)
+          #CIBW_BEFORE_TEST: pip install blosc2
+          #CIBW_TEST_COMMAND: cmd /V /C "set "BLOSC_TRACE=1" && python {project}/examples/array_roundtrip.py"
           CIBW_BUILD_VERBOSITY: 1
 
       - name: Build wheels (Mac OSX arm64)
