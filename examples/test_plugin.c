@@ -7,6 +7,39 @@
    Since it won't be registered yet as a filter/codec in Blosc2, it will
    be registered as user-defined. So it's id must be between 160-255.
 
+   To compile and run this test:
+   cd examples
+   gcc test_plugin.c -o test_plugin -I /Users/martaiborra/miniforge3/envs/plugin_example_arm64/include \
+   -L /Users/martaiborra/miniforge3/envs/plugin_example_arm64/lib -lblosc2
+   # For MacOS
+   DYLD_LIBRARY_PATH=/Users/martaiborra/miniforge3/envs/plugin_example_arm64/lib/ ./test_plugin
+   # For linux
+   LD_LIBRARY_PATH=path_to_blosc2_lib ./test_plugin
+
+   To check that it is actually running the defined filter you can use BLOSC_TRACE=1.
+   BLOSC_TRACE=1 LD_LIBRARY_PATH=path_to_blosc2_lib ./test_plugin
+
+   Expected output:
+    Blosc version info: 2.10.0 ($Date:: 2023-07-04 #$)
+    Compression ratio: 381.5 MB -> 2.9 MB (130.8x)
+    Compression time: 0.265 s, 1437.0 MB/s
+    Decompression time: 0.152 s, 2506.6 MB/s
+    Successful roundtrip data <-> schunk !
+
+   Expected output with BLOSC_TRACE=1:
+    Blosc version info: 2.10.0 ($Date:: 2023-07-04 #$)
+    [info] - libpath for plugin blosc2_plugin_example: /Users/martaiborra/miniconda3/envs/plugin_example/lib/python3.11/site-packages/blosc2_plugin_example/libblosc2_plugin_example.so
+     (/Users/runner/work/python-blosc2/python-blosc2/blosc2/c-blosc2/blosc/blosc-private.h:265)
+    Inside plugin_example forward function
+              ...
+    Compression ratio: 381.5 MB -> 2.9 MB (130.8x)
+    Compression time: 0.25 s, 1523.0 MB/s
+    Inside plugin_example backward function
+              ...
+    Decompression time: 0.156 s, 2444.7 MB/s
+    Inside plugin_example backward function
+              ...
+    Successful roundtrip data <-> schunk !
  */
 
 
