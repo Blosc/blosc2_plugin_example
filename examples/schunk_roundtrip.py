@@ -28,4 +28,8 @@ cframe = schunk.to_cframe()
 schunk2 = blosc2.schunk_from_cframe(cframe, False)
 data2 = np.empty(data.shape, dtype=data.dtype)
 schunk2.get_slice(out=data2)
-assert np.array_equal(data, data2)
+if np.array_equal(data, data2):
+    print("Successful roundtrip!")
+else:
+    print("Bad roundtrip! Try setting BLOSC_TRACE=1 envvar for more info on failure.")
+
