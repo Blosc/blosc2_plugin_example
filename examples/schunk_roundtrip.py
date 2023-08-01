@@ -20,7 +20,7 @@ contiguous = True
 storage = {"contiguous": contiguous, "cparams": cparams, "dparams": dparams}
 
 # Create the SChunk
-data = np.arange(200 * 1000 * nchunks)
+data = np.arange(200 * 1000 * nchunks, dtype=np.int32)
 schunk = blosc2.SChunk(chunksize=200 * 1000 * 4, data=data, **storage)
 
 cframe = schunk.to_cframe()
@@ -32,4 +32,3 @@ if np.array_equal(data, data2):
     print("Successful roundtrip!")
 else:
     print("Bad roundtrip! Try setting BLOSC_TRACE=1 envvar for more info on failure.")
-
