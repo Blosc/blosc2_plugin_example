@@ -11,15 +11,12 @@ import numpy as np
 import blosc2
 
 blosc2.register_filter(250, None, None, "plugin_example")
-nchunks = 10
-# Set the compression and decompression parameters
-cparams = {"filters": [250], "filters_meta": [0], "typesize": 4, "nthreads": 1}
-dparams = {"nthreads": 1}
-contiguous = True
 
-storage = {"contiguous": contiguous, "cparams": cparams, "dparams": dparams}
+# Set the compression and decompression parameters
+storage = {"contiguous": True, "cparams": {"filters": [250], "typesize": 4}}
 
 # Create the SChunk
+nchunks = 10
 data = np.arange(200 * 1000 * nchunks, dtype=np.int32)
 schunk = blosc2.SChunk(chunksize=200 * 1000 * 4, data=data, **storage)
 
