@@ -10,21 +10,23 @@
 #include "string.h"
 #include "blosc2.h"
 #include "blosc2/filters-registry.h"
+#include "urfilters.h"
 
 #define FILTER_ID 250
 #define FILTER_NAME "plugin_example"
 
-#define FORWARD_NAME "blosc2_plugin_example_forward"
-#define BACKWARD_NAME "blosc2_plugin_example_backward"
-
 
 int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_cparams *cparams,
                            uint8_t id) {
-  char* blosc_trace = getenv("BLOSC_TRACE");
-  if (blosc_trace != NULL) {
-    printf("Inside plugin_example forward function\n");
+  BLOSC_TRACE_INFO("Inside plugin_example forward function\n");
+  blosc2_schunk *schunk = NULL;
+  if (cparams != NULL && cparams->schunk != NULL) {
+    schunk = cparams->schunk;
   }
-  blosc2_schunk *schunk = cparams->schunk;
+  else {
+    BLOSC_TRACE_ERROR("Cannot get schunk from cparams");
+    return BLOSC2_ERROR_CODEC_PARAM;
+  }
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
     switch (schunk->typesize) {
@@ -48,11 +50,15 @@ int blosc2_plugin_example_forward(const uint8_t* src, uint8_t* dest, int32_t siz
 
 int blosc2_plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t size, uint8_t meta, blosc2_dparams *dparams,
                             uint8_t id) {
-  char* blosc_trace = getenv("BLOSC_TRACE");
-  if (blosc_trace != NULL) {
-    printf("Inside plugin_example backward function\n");
+  BLOSC_TRACE_INFO("Inside plugin_example backward function\n");
+  blosc2_schunk *schunk = NULL;
+  if (dparams != NULL && dparams->schunk != NULL) {
+    schunk = dparams->schunk;
   }
-  blosc2_schunk *schunk = dparams->schunk;
+  else {
+    BLOSC_TRACE_ERROR("Cannot get schunk from dparams");
+    return BLOSC2_ERROR_CODEC_PARAM;
+  }
 
   for (int i = 0; i < size / schunk->typesize; ++i) {
     switch (schunk->typesize) {
@@ -74,4 +80,3 @@ int blosc2_plugin_example_backward(const uint8_t* src, uint8_t* dest, int32_t si
 }
 
 
-filter_info info  = {.forward=FORWARD_NAME, .backward=BACKWARD_NAME};

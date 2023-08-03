@@ -7,12 +7,14 @@
 # See LICENSE.txt for details about copyright and rights to use.
 
 [build-system]
-requires = ["setuptools", "scikit-build", "cmake", "ninja", "blosc2"]
-build-backend = "setuptools.build_meta"
+#requires = ["scikit-build-core", "blosc2@git+https://github.com/Blosc/python-blosc2#egg=main"]
+requires = ["scikit-build-core", "blosc2"]
+build-backend = "scikit_build_core.build"
 
 [project]
 name = "blosc2_plugin_example"
-dynamic = ["version", "readme"]
+version = "0.0.1"
+dynamic = ["readme"]
 authors = [
     {name = "Blosc Development Team", email = "blosc@blosc.org"},
 ]
@@ -20,28 +22,34 @@ description = "My package description"
 keywords = ["plugin", "blosc2"]
 license = {text = "BSD-3-Clause"}
 classifiers = [
-    "Framework :: Django",
     "Programming Language :: Python :: 3",
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: BSD License",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: Unix",
     "Programming Language :: C",
-    "Programming Language :: C++"
 ]
 dependencies = [
     "blosc2"
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "blosc2_plugin_example.VERSION"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools]
 platforms = [ "any" ]
 zip-safe = false
 
+[tool.scikit-build]
+# This activates verbose builds
+cmake.verbose = true
+# This controls the CMake build type
+cmake.build-type = "Release"
+# The licence file(s) to include in the wheel metadata directory.
+wheel.license-files = ["LICEN[CS]E*", "COPYING*", "NOTICE*", "AUTHORS*"]
+
 [tool.cibuildwheel]
+#skip = "cp36-* cp37-* cp38-* cp39-* cp310-* pp37-* pp38-* pp39-* pp310-* *-manylinux_i686 *_ppc64le *_s390x *-musllinux*"
 skip = "cp36-* cp37-* pp37-* *-manylinux_i686 *_ppc64le *_s390x *-musllinux*"
